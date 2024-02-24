@@ -1,0 +1,33 @@
+FROM jenkins/jenkins:lts
+
+USER root
+
+# Установка Docker
+# RUN apt-get update && \
+#     apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common && \
+#     curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add - && \
+#     add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable" && \
+#     apt-get update && \
+#     apt-get install -y docker-ce docker-ce-cli containerd.io
+
+FROM docker:latest
+
+# Установить Docker CLI
+RUN apk add --no-cache \
+    docker-cli
+
+# Установить docker-compose
+RUN apk add --no-cache \
+    python3 \
+    py3-pip
+RUN pip3 install docker-compose
+
+# Запустить Docker демон
+CMD dockerd
+
+# Добавление пользователя Jenkins в группу docker
+RUN usermod -aG docker jenkins
+
+ENV DOCKER_HOST=unix:///var/run/docker.sock
+
+USER jenkins

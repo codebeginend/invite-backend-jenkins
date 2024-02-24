@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  jenkins:
+    image: jenkins-with-docker-test
+    build:
+      context: .
+    privileged: true
+    user: root
+    ports:
+        - 8080:8080
+        - 50000:50000
+    container_name: my-jenkins-test
+    volumes:
+        - ./jenkins_home:/var/jenkins_home
+    environment:
+      - JENKINS_ADMIN_ID=admin
+      - JENKINS_ADMIN_PASSWORD=admin
+    networks:
+      - jenkinsnet
+networks:
+  jenkinsnet:
