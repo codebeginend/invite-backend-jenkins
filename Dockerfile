@@ -17,6 +17,6 @@ RUN curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-c
 # Добавление пользователя Jenkins в группу docker
 RUN usermod -aG docker jenkins
 
-ENV DOCKER_HOST=unix:///var/run/docker.sock
+# ENV DOCKER_HOST=unix:///var/run/docker.sock
 
 USER jenkins

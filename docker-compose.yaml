@@ -16,6 +16,7 @@ services:
     environment:
       - JENKINS_ADMIN_ID=admin
       - JENKINS_ADMIN_PASSWORD=admin
+      - DOCKER_HOST=unix:///var/run/docker.sock
     networks:
       - jenkinsnet
 networks:
